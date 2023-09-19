@@ -30,7 +30,7 @@ def main(args):
         sys.stderr.write("> reading %s\n" % reader.fmt)
     except FileNotFoundError:
         sys.stderr.write("> error: no suitable files found in %s\n" % args.reads_directory)
-        exit(1)
+        # exit(1)
 
     fmt = biofmt(aligned=args.reference is not None)
 
@@ -124,6 +124,8 @@ def main(args):
         ResultsWriter = CTCWriter
     else:
         ResultsWriter = Writer
+
+
 
     results = basecall(
         model, reads, reverse=args.revcomp, rna=args.rna,
