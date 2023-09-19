@@ -125,7 +125,14 @@ def main(args):
     else:
         ResultsWriter = Writer
 
-    reads = (np.random.rand(1000), np.random.rand(999))
+# MY OWN CODE ======
+    class FakeRead:
+        def __init__(self, signal):
+            self.signal = signal
+
+    reads = (FakeRead(np.random.rand(1000)), FakeRead(np.random.rand(999)))
+
+# ============
 
     results = basecall(
         model, reads, reverse=args.revcomp, rna=args.rna,
