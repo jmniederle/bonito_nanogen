@@ -32,11 +32,12 @@ def compute_scores(model, batch, beam_width=32, beam_cut=100.0, scale=1.0, offse
         device = next(model.parameters()).device
         print(f"half supported: {half_supported()}")
         dtype = torch.float16 if half_supported() else torch.float32
-        dtype = torch.float16
+        # dtype = torch.float16
         scores = model(batch.to(dtype).to(device))
         if reverse:
             scores = model.seqdist.reverse_complement(scores)
         with torch.cuda.device(scores.device):
+            scores = scores.to(torch.float16)
             sequence, qstring, moves = beam_search(
                 scores, beam_width=beam_width, beam_cut=beam_cut,
                 scale=scale, offset=offset, blank_score=blank_score
