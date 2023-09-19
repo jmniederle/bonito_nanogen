@@ -102,12 +102,12 @@ def main(args):
         groups = []
         num_reads = None
 
-    reads = reader.get_reads(
-        args.reads_directory, n_proc=8, recursive=args.recursive,
-        read_ids=column_to_set(args.read_ids), skip=args.skip,
-        do_trim=not args.no_trim, norm_params=model.config.get('normalisation'),
-        cancel=process_cancel()
-    )
+    # reads = reader.get_reads(
+    #     args.reads_directory, n_proc=8, recursive=args.recursive,
+    #     read_ids=column_to_set(args.read_ids), skip=args.skip,
+    #     do_trim=not args.no_trim, norm_params=model.config.get('normalisation'),
+    #     cancel=process_cancel()
+    # )
 
     if args.max_reads:
         reads = take(reads, args.max_reads)
@@ -125,7 +125,7 @@ def main(args):
     else:
         ResultsWriter = Writer
 
-
+    reads = (np.random.rand(1000), np.random.rand(999))
 
     results = basecall(
         model, reads, reverse=args.revcomp, rna=args.rna,
