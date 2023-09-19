@@ -128,7 +128,7 @@ def main(args):
 # MY OWN CODE ======
     class FakeRead:
         def __init__(self, signal):
-            self.signal = signal
+            self.signal = signal.astype(np.float16)
 
     reads = (FakeRead(np.random.rand(1000)), FakeRead(np.random.rand(999)))
 
@@ -140,7 +140,11 @@ def main(args):
         chunksize=model.config["basecaller"]["chunksize"],
         overlap=model.config["basecaller"]["overlap"]
     )
-    
+
+    # my code ====
+    print(results)
+    # ====
+
     if mods_model is not None:
         if args.modified_device:
             results = ((k, call_mods(mods_model, k, v)) for k, v in results)
