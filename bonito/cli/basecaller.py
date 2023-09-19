@@ -127,10 +127,11 @@ def main(args):
 
 # MY OWN CODE ======
     class FakeRead:
-        def __init__(self, signal):
+        def __init__(self, signal, read_id=np.randint(100)):
             self.signal = signal.astype(np.float16)
+            self.read_id = read_id
 
-    reads = (FakeRead(np.random.rand(1000)), FakeRead(np.random.rand(999)))
+    reads = (FakeRead(np.random.rand(1000), 0), FakeRead(np.random.rand(999), 1))
 
 # ============
 
