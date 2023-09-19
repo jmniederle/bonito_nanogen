@@ -134,6 +134,9 @@ def main(args):
             self.num_samples = 1
             self.trimmed_samples = 0
 
+        def tagdata(self):
+            return []
+
     reads = (FakeRead(np.random.rand(1000), 0), FakeRead(np.random.rand(999), 1))
 
 # ============
