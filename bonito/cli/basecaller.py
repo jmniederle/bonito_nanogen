@@ -130,6 +130,8 @@ def main(args):
         def __init__(self, signal, read_id=np.random.randint(1000)):
             self.signal = signal.astype(np.float16)
             self.read_id = read_id
+            self.num_samples = 1
+            self.trimmed_samples = 0
 
     reads = (FakeRead(np.random.rand(1000), 0), FakeRead(np.random.rand(999), 1))
 
