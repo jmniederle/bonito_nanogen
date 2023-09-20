@@ -144,7 +144,10 @@ def main(args):
         def tagdata(self):
             return []
 
-    reads = (FakeRead(np.random.rand(1000), 0), FakeRead(np.random.rand(999), 1))
+    with open("test_read.p", "rb") as f:
+        test_read = pickle.load(f)
+
+    reads = (FakeRead(test_read.raw, 0), FakeRead(np.random.rand(999), 1))
 
 # ============
 
