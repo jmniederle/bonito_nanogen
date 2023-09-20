@@ -133,6 +133,13 @@ def main(args):
             self.run_id = np.random.randint(1000)
             self.num_samples = 1
             self.trimmed_samples = 0
+            self.filename = "file"
+            self.channel = "channel"
+            self.mux = 0
+            self.start = 0
+            self.duration = 0
+            self.template_start = 0
+            self.template_duration = 0
 
         def tagdata(self):
             return []
