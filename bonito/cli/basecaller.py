@@ -155,6 +155,10 @@ def main(args):
         overlap=model.config["basecaller"]["overlap"]
     )
 
+    filename = os.path.join('..', '..', 'basecall_results.p')
+    with open(filename, 'wb') as file:
+        pickle.dump(results, file)
+
     # my code ====
     print(results)
     # ====
