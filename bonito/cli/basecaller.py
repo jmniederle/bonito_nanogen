@@ -149,24 +149,23 @@ def main(args):
     with open("test_read.p", "rb") as f:
         test_read = pickle.load(f)
 
-    reads = (FakeRead(test_read.raw, 0), FakeRead(np.random.rand(999), 1))
+    reads = (FakeRead(test_read[i]['raw'], 0) for i in range(len(test_read)))
 
 # ============
 
+    # results = basecall(
+    #     model, reads, reverse=args.revcomp, rna=args.rna,
+    #     batchsize=model.config["basecaller"]["batchsize"],
+    #     chunksize=model.config["basecaller"]["chunksize"],
+    #     overlap=model.config["basecaller"]["overlap"]
+    # )
+
     results = basecall(
-        model, reads, reverse=args.revcomp, rna=args.rna,
+        model, reads, reverse=False, rna=False,
         batchsize=model.config["basecaller"]["batchsize"],
-        chunksize=model.config["basecaller"]["chunksize"],
-        overlap=model.config["basecaller"]["overlap"]
+        chunksize=1000,
+        overlap=0
     )
-
-    # # filename = os.path.join('..', '..', 'basecall_results.p')
-    # with open("basecall_results.p", 'wb') as file:
-    #     pickle.dump(results, file)
-
-    # my code ====
-    print(results)
-    # ====
 
     if mods_model is not None:
         if args.modified_device:
