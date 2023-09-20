@@ -19,6 +19,7 @@ from pysam import AlignmentFile, AlignmentHeader, AlignedSegment
 import bonito
 from bonito.cli.convert import typical_indices
 from bonito.util import mean_qscore_from_qstring
+import pickle
 
 
 logger = getLogger('bonito')
@@ -420,13 +421,13 @@ class Writer(Thread):
         )
 
     def run(self):
+        sequences = []
         with CSVLogger(summary_file(), sep='\t') as summary:
             for read, res in self.iterator:
 
                 seq = res['sequence']
-                print(seq)
+                sequences.append(seq)
                 qstring = res.get('qstring', '*')
-                print(qstring)
                 mean_qscore = res.get('mean_qscore', mean_qscore_from_qstring(qstring))
                 mapping = res.get('mapping', False)
                 mods_tags = res.get('mods', [])
@@ -464,6 +465,10 @@ class Writer(Thread):
                     summary.append(summary_row(read, len(seq), mean_qscore, alignment=mapping))
                 else:
                     logger.warn("> skipping empty sequence %s", read_id)
+
+        with open("basecall_results.p", 'wb') as file:
+            pickle.dump(sequences, file)
+
 
 
 class DuplexWriter(Writer, Thread):
