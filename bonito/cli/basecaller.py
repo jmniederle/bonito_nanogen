@@ -20,6 +20,8 @@ from bonito.cli.download import File, models, __models__
 from bonito.multiprocessing import process_cancel, process_itemmap
 from bonito.util import column_to_set, load_symbol, load_model, init
 
+import pickle
+
 
 def main(args):
 
