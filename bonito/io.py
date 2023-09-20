@@ -424,7 +424,9 @@ class Writer(Thread):
             for read, res in self.iterator:
 
                 seq = res['sequence']
+                print(seq)
                 qstring = res.get('qstring', '*')
+                print(qstring)
                 mean_qscore = res.get('mean_qscore', mean_qscore_from_qstring(qstring))
                 mapping = res.get('mapping', False)
                 mods_tags = res.get('mods', [])
